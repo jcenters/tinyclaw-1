@@ -1,0 +1,189 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "tc-fitness-daily-workout",
+      "agentId": "fitness",
+      "name": "fitness-daily-workout",
+      "description": "Daily workout: design + calendar booking + Telegram summary",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 3 * * 1-6",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run the daily workout scheduler.\n\n1. Check current weather conditions and temperature.\n2. Select equipment based on weather (indoor vs outdoor building rules from CLAUDE.md).\n3. Design a 20-minute workout following the protocol: RPE 7-8, no barbell squats, warm up properly.\n4. Book the workout on gog calendar (check CLAUDE.md for calendar commands).\n5. Send Josh a Telegram summary with the workout and calendar link.\n\nOutput must include: BOOKED_OK or BOOKING_FAILED, and NOTIFY_OK or NOTIFY_FAILED.",
+        "model": "anthropic/claude-haiku-4-5-20251001"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1295061383"
+      }
+    },
+    {
+      "id": "tc-fitness-weekly-weight",
+      "agentId": "fitness",
+      "name": "fitness-weekly-weight",
+      "description": "Sunday weigh-in prompt",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 7 * * 0",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Sunday weigh-in prompt. Send Josh a Telegram message asking him to step on the scale and report his weight. Note that lipid recheck is due ~May 2026 and tracking progress is important.",
+        "model": "anthropic/claude-haiku-4-5-20251001"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1295061383"
+      }
+    },
+    {
+      "id": "tc-content-morning-feed",
+      "agentId": "content",
+      "name": "content-morning-feed",
+      "description": "Morning content feed Mon-Sat",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 7 * * 1-6",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Morning content brief.\n\nCheck recent news relevant to TFB, AllOutdoor, and OutdoorHub. Identify 2-3 story opportunities worth pursuing today. Prioritize breaking firearm/outdoor news and high-volume keyword opportunities.\n\nFor any strong story: draft a headline + 2-sentence pitch. Send brief to Josh via Telegram.",
+        "model": "anthropic/claude-sonnet-4-6"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1295061383"
+      }
+    },
+    {
+      "id": "tc-content-pm-feed",
+      "agentId": "content",
+      "name": "content-pm-feed",
+      "description": "PM content feed + tweet draft Mon-Sat",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 16 * * 1-6",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "PM content and tweet draft.\n\n1. Use `xurl timeline @firearmblog --limit 5` to fetch the latest @firearmblog tweets. Note the most recent tweet URL to avoid duplication.\n2. Draft one tweet for @firearmblog using the x-tweet-optimizer and josh-voice skills. Do NOT duplicate recent tweets.\n3. Send Josh the draft tweet via Telegram with the latest tweet URL for context.\n\nNote: Cannot auto-post. Josh posts manually.",
+        "model": "anthropic/claude-sonnet-4-6"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1295061383"
+      }
+    },
+    {
+      "id": "tc-jobs-daily-scan",
+      "agentId": "jobs",
+      "name": "jobs-daily-scan",
+      "description": "Daily job opportunities scan Mon-Sat",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "45 8 * * 1-6",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Daily job scan. Search for new content/SEO/editorial director roles matching Josh's profile (content marketing, SEO, firearms/outdoor, SaaS editorial). Check LinkedIn, Indeed, and relevant job boards via agent-browser. Log any strong matches to jobs/memory/. Send Josh a Telegram summary of any new opportunities found.",
+        "model": "anthropic/claude-haiku-4-5-20251001"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1295061383"
+      }
+    },
+    {
+      "id": "tc-jobs-followup-reminders",
+      "agentId": "jobs",
+      "name": "jobs-followup-reminders",
+      "description": "Follow-up reminders for active applications Mon-Sat",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 12 * * 1-6",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Check jobs/memory/ for applications that need follow-up. Flag any that are 5-7 days old with no response, or any with upcoming interview dates. Send Josh reminders via Telegram only if there are actionable items. If nothing needs attention, stay quiet.",
+        "model": "anthropic/claude-haiku-4-5-20251001"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1295061383"
+      }
+    },
+    {
+      "id": "tc-jobs-weekly-summary",
+      "agentId": "jobs",
+      "name": "jobs-weekly-summary",
+      "description": "Sunday weekly jobs summary",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 15 * * 0",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Weekly job search summary. Review jobs/memory/ and compile a status report: active applications, interviews scheduled, follow-ups needed, and new opportunities to pursue this week. Send Josh a clean summary via Telegram.",
+        "model": "anthropic/claude-haiku-4-5-20251001"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1295061383"
+      }
+    },
+    {
+      "id": "tc-seo-weekly-report",
+      "agentId": "main",
+      "name": "seo-weekly-report",
+      "description": "Sunday weekly SEO report for TFB/AllOutdoor/OutdoorHub",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * 0",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run the weekly-seo-report skill for TheFirearmBlog.com, AllOutdoor.com, and OutdoorHub.com. Use the Ahrefs MCP for live data. Check ~/.tinyclaw/files/ for any GA4 or GSC CSVs Josh may have dropped. If CSVs are missing, proceed with Ahrefs data only and note what's missing. Send the report to Josh via Telegram.",
+        "model": "anthropic/claude-sonnet-4-6"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1295061383"
+      }
+    }
+  ]
+}

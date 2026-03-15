@@ -1,0 +1,59 @@
+{
+  "workspace": {
+    "path": "/home/josh/workspace/.tinyclaw",
+    "name": ".tinyclaw"
+  },
+  "channels": {
+    "enabled": [
+      "telegram"
+    ],
+    "telegram": {
+      "bot_token": "${TELEGRAM_BOT_TOKEN}"
+    },
+    "defaults": {
+      "1295061383": "content"
+    }
+  },
+  "models": {
+    "provider": "anthropic",
+    "anthropic": {
+      "model": "claude-sonnet-4-6"
+    }
+  },
+  "agents": {
+    "main": {
+      "name": "Main",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6",
+      "working_directory": "/home/josh/workspace/.tinyclaw/main",
+      "heartbeat": {
+        "enabled": false
+      }
+    },
+    "content": {
+      "name": "Content",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6",
+      "working_directory": "/home/josh/workspace/.tinyclaw/content",
+      "heartbeat": {
+        "enabled": true,
+        "interval": 14400
+      }
+    },
+    "fitness": {
+      "name": "Fitness",
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5-20251001",
+      "working_directory": "/home/josh/workspace/.tinyclaw/fitness"
+    },
+    "jobs": {
+      "name": "Jobs",
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5-20251001",
+      "working_directory": "/home/josh/workspace/.tinyclaw/jobs",
+      "heartbeat": {
+        "enabled": false
+      }
+    }
+  }
+}

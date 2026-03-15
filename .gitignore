@@ -1,0 +1,21 @@
+# Credentials — never commit
+.env
+
+# Runtime / build artifacts
+node_modules/
+dist/
+*.db
+*.db-shm
+*.db-wal
+logs/
+chats/
+
+# Transient state
+heartbeat.md
+
+# Build artifacts
+packages/*/tsconfig.tsbuildinfo
+tinyoffice/tsconfig.tsbuildinfo
+
+# Large media
+docs/videos/
