@@ -10,9 +10,7 @@
     "telegram": {
       "bot_token": "${TELEGRAM_BOT_TOKEN}"
     },
-    "defaults": {
-      "1295061383": "content"
-    }
+    "defaults": {}
   },
   "models": {
     "provider": "anthropic",
