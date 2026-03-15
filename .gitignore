@@ -19,3 +19,6 @@ tinyoffice/tsconfig.tsbuildinfo
 
 # Large media
 docs/videos/
+
+# Incoming files from Telegram/WhatsApp/Discord — don't commit
+files/
